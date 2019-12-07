@@ -45,7 +45,8 @@ RUN wget http://www.digip.org/jansson/releases/jansson-2.7.tar.bz2 && \
     rm /opt/jansson-2.7.tar.bz2 && \
     rm -rf /opt/jansson-2.7
 
-RUN git clone https://github.com/kaldi-asr/kaldi && \
+RUN apt-get update && apt-get install -y unzip sox gfortran python3 python3-dev python3-pip && \
+    git clone https://github.com/kaldi-asr/kaldi && \
     cd kaldi/tools && \
     make && \
     ./install_portaudio.sh
