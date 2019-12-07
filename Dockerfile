@@ -18,13 +18,15 @@ RUN apt-get update && apt-get install -y  \
     libtool-bin \
     make \
     python2.7 \
-    python-pip \
+    python-
+    \
     python-yaml \
     python-simplejson \
     python-gi \
     subversion \
     wget \
-    zlib1g-dev && \
+    zlib1g-dev \
+    supervisor && \
     apt-get clean autoclean && \
     apt-get autoremove -y && \
     pip install ws4py==0.3.2 && \
@@ -63,8 +65,9 @@ RUN git clone https://github.com/kaldi-asr/kaldi && \
     cd /opt && git clone https://github.com/alumae/kaldi-gstreamer-server.git && \
     rm -rf /opt/kaldi-gstreamer-server/.git/ && \
     rm -rf /opt/kaldi-gstreamer-server/test/
+    
+COPY contrib/etc/supervisord/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
-COPY start.sh stop.sh /opt/
+STOPSIGNAL SIGTERM
 
-RUN chmod +x /opt/start.sh && \
-    chmod +x /opt/stop.sh 
+CMD ["supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
