@@ -18,8 +18,7 @@ RUN apt-get update && apt-get install -y  \
     libtool-bin \
     make \
     python2.7 \
-    python-
-    \
+    python-pip \
     python-yaml \
     python-simplejson \
     python-gi \
