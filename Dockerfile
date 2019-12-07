@@ -50,7 +50,9 @@ RUN apt-get update && apt-get install -y unzip sox gfortran python3 python3-dev 
     cd kaldi/tools && \
     make && \
     ./install_portaudio.sh
-    
+
+RUN kaldi/tools/extras/install_mkl.sh
+
 RUN cd kaldi/src && \
     ./configure --shared && \
     sed -i '/-g # -O0 -DKALDI_PARANOID/c\-O3 -DNDEBUG' kaldi.mk && \
